@@ -245,5 +245,51 @@ module.exports = {
     p.arpSpeed = frnd(2) - 1;
     p.arpMod = frnd(2) - 1;
     return p;
+  },
+  reset: function(p) {
+    p.shape = 0;
+
+    // Envelope
+    p.attack = 0;    // Attack time
+    p.sustain = 0.3; // Sustain time
+    p.punch = 0;     // Sustain punch
+    p.decay = 0.4;   // Decay time
+
+    // Tone
+    p.freq = 0.3;    // Start frequency
+    p.freqLimit = 0;   // Min frequency cutoff
+    p.freqSlide = 0;    // Slide (SIGNED)
+    p.freqSlideDelta = 0;   // Delta slide (SIGNED)
+    // Vibrato
+    p.vibDepth = 0; // Vibrato depth
+    p.vibSpeed = 0;    // Vibrato speed
+
+    // Tonal change
+    p.arpMod = 0;      // Change amount (SIGNED)
+    p.arpSpeed = 0;    // Change speed
+
+    // Square wave duty (proportion of time signal is high vs. low)
+    p.duty = 0;         // Square duty
+    p.dutySweep = 0;    // Duty sweep (SIGNED)
+
+    // Repeat
+    p.repeatSpeed = 0; // Repeat speed
+
+    // Flanger
+    p.flangerOffset = 0;   // Flanger offset (SIGNED)
+    p.flangerSweep = 0;     // Flanger sweep (SIGNED)
+
+    // Low-pass filter
+    p.lpf = 1;     // Low-pass filter cutoff
+    p.lpfSweep = 0;     // Low-pass filter cutoff sweep (SIGNED)
+    p.lpfResonance = 0;// Low-pass filter resonance
+    // High-pass filter
+    p.hpf = 0;     // High-pass filter cutoff
+    p.hpfSweep = 0;     // High-pass filter cutoff sweep (SIGNED)
+
+    // Sample parameters
+    p.vol = 0.5;
+
+    return p;
   }
 };

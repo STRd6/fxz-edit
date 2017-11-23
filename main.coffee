@@ -1,15 +1,19 @@
 ApplicationTemplate = require "./templates/application"
+ControlsPresenter = require "./presenters/controls"
+
+global.require = require
 
 {Params, Serializer} = SFXZ = require "sfxz"
 
 Mutator = require "./mutator"
 
 params = new Params
+controlsElement = ControlsPresenter params
 
 audioContext = new AudioContext
 
 createAndPlay = (type) ->
-  params = Mutator[type](new Params)
+  params = Mutator[type](Mutator.reset(params))
 
   # Generate audio data
   audioBuffer = SFXZ(params, audioContext)
@@ -28,8 +32,8 @@ createAndPlay = (type) ->
 
   console.log Serializer.deserialize(buf, new Params)
 
-
 document.body.appendChild ApplicationTemplate
+  controlsElement: controlsElement
   coin: ->
     createAndPlay("pickupCoin")
 
