@@ -1,0 +1,4 @@
+div.effect
+  a(href=@wavURL download=true) Download .wav
+  a(href=@sfxzURL download=true) Download .sfxz
+  = @canvas
