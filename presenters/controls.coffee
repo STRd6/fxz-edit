@@ -37,6 +37,33 @@ controlGroups =
       signed: true
     arpSpeed:
       name: "Frequency Mult Δ"
+  "Duty Cycle":
+    duty:
+      name: "Duty Cycle"
+    dutySweep:
+      name: "Sweep"
+      signed: true
+  Flanger:
+    flangerOffset:
+      name: "Offset"
+      signed: true
+    flangerSweep:
+      name: "Sweep"
+      signed: true
+  "Low-Pass Filter":
+    lpf:
+      name: "Cutoff Freq"
+    lpfSweep:
+      name: "Cutoff Sweep"
+      signed: true
+    lpfResonance:
+      name: "Resonance"
+  "High-Pass Filter":
+    hpf:
+      name: "Cutoff Freq"
+    hpfSweep:
+      name: "Cutoff Sweep"
+      signed: true
 
 Section = (className) ->
   element = document.createElement "section"
