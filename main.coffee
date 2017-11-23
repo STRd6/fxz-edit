@@ -2,6 +2,8 @@ styleNode = document.createElement("style")
 styleNode.innerHTML = require('./style')
 document.head.appendChild(styleNode)
 
+Spectrum = require "./spectrum"
+
 ApplicationTemplate = require "./templates/application"
 ControlsPresenter = require "./presenters/controls"
 
@@ -35,6 +37,8 @@ createAndPlay = (type) ->
 
   buf = Serializer.serialize(params)
   console.log new Uint8Array(buf)
+
+  document.body.appendChild Spectrum(audioBuffer.getChannelData(0))
 
   console.log Serializer.deserialize(buf, new Params)
 

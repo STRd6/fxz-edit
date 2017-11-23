@@ -74,7 +74,7 @@ Section = (className) ->
 H2 = (text) ->
   h2 = document.createElement "h2"
   h2.innerText = text
-  
+
   return h2
 
 module.exports = (params) ->
@@ -91,7 +91,7 @@ module.exports = (params) ->
 
     Object.keys(group).map (property) ->
       {name, signed} = group[property]
-      
+
       if signed
         min = -1
       else
