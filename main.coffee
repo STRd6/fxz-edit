@@ -15,6 +15,8 @@ audioContext = new AudioContext
 createAndPlay = (type) ->
   params = Mutator[type](Mutator.reset(params))
 
+  controlsElement.resync()
+
   # Generate audio data
   audioBuffer = SFXZ(params, audioContext)
 

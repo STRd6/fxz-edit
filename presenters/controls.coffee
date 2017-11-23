@@ -3,23 +3,40 @@ ControlTemplate = require "../templates/control"
 {Observable} = require "/lib/jadelet-runtime"
 
 controlGroups =
+  Wave:
+    shape:
+      name: "Shape"
   Envelope:
     attack:
       name: "Attack"
-      signed: false
     sustain:
       name: "Sustain"
-      signed: false
     punch:
       name: "Sustain Punch"
-      signed: false
     decay:
       name: "Decay"
-      signed: false
   Frequency:
     freq:
       name: "Frequency"
-      signed: false
+    freqLimit:
+      name: "Min Freq Cutoff"
+    freqSlide:
+      name: "Frequency Slide"
+      signed: true
+    freqSlideDelta:
+      name: "Frequency Slide Δ"
+      signed: true
+  Vibrato:
+    vibDepth:
+      name: "Vibrato Depth"
+    vibSpeed:
+      name: "Vibrato Speed"
+  Arpeggiation:
+    arpMod:
+      name: "Frequency Mult"
+      signed: true
+    arpSpeed:
+      name: "Frequency Mult Δ"
 
 Section = (className) ->
   element = document.createElement "section"
@@ -35,6 +52,8 @@ H2 = (text) ->
 
 module.exports = (params) ->
   element = Section("controls")
+
+  observableProps = {}
 
   Object.keys(controlGroups).map (groupName) ->
     group = controlGroups[groupName]
@@ -54,7 +73,9 @@ module.exports = (params) ->
       step = 0.001
       max = 1
 
-      value = Observable params[property]
+      value = observableProps[property] = Observable params[property]
+      value.observe (newValue) ->
+        params[property] = newValue
 
       groupElement.appendChild ControlTemplate
         name: name
@@ -63,5 +84,8 @@ module.exports = (params) ->
         max: max
         step: step
 
+  element.resync = ->
+    Object.keys(params).forEach (name) ->
+      observableProps[name]?(params[name])
+
   return element
-  
