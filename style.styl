@@ -2,6 +2,8 @@
   box-sizing: border-box
 
 body
+  background-color: black
+  color: white
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif
   font-size: 16px
   font-weight: 300
@@ -10,14 +12,32 @@ body
   > application
     display: block
 
+button, a.button
+  color: #EEE
+  border-style: outset
+  border-width: 2px
+  background-color: #777
+  border-top-color: slategray
+  border-left-color: slategrey
+  border-bottom-color: #666
+  border-right-color: #666
+  display: inline-block
+  font-family: inherit
+  font-size: inherit
+  font-weight: inherit
+  line-height: 1em
+  padding: 0.5em
+  text-decoration: none
+  text-shadow: 1px 1px #000
+
+a.button[download]::before
+  content: "⬇ "
+
 h2
   font-size: 1em
   margin: 0
 
 div.effect
-  > div.actions
-    > a
-      padding: 0 1em
   > canvas
     display: block
 

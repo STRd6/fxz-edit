@@ -9,6 +9,7 @@ application
     button(click=@blip) Blip
     button(click=@random) Random
     button(click=@tone) Tone
+    button(click=@play) ▶ Play
 
-  = @controlsElement
   = @effectElement
+  = @controlsElement

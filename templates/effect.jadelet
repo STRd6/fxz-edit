@@ -1,6 +1,5 @@
 .effect
-  .actions
-    button(click=@play) ▶ Play
-    a(href=@wavURL download=@wavFilename)= @wavFilename
-    a(href=@sfxzURL download=@sfxzFilename)= @sfxzFilename
   = @canvas
+  .actions
+    a.button(href=@wavURL download=@wavFilename)= @wavFilename
+    a.button(href=@sfxzURL download=@sfxzFilename)= @sfxzFilename

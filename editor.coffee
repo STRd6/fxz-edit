@@ -11,9 +11,9 @@ module.exports = ->
 
   controlsElement = ControlsPresenter effect
   effectElement = EffectPresenter effect
-  
+
   global.audioContext = new AudioContext
-  
+
   createAndPlay = (type) ->
     effect.randomOfType(type)
     effect.play()
@@ -47,6 +47,9 @@ module.exports = ->
   
     random: ->
       createAndPlay("random")
+
+    play: ->
+      effect.play()
 
   self =
     createAndPlay: createAndPlay
