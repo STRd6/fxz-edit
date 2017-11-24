@@ -20,3 +20,29 @@ div.effect
       padding: 0 1em
   > canvas
     display: block
+
+section.generators
+  display: flex
+  > button
+    flex: 1
+
+section.controls
+  display: flex
+  flex-wrap: wrap
+
+section.group
+  > h2
+    font-size: 12px
+
+section.control
+  align-items: center
+  display: flex
+  position: relative
+
+  > label
+    position: absolute
+    pointer-events: none
+    font-size: 12px
+    right: 3px
+    top: -4px
+    z-index: -1

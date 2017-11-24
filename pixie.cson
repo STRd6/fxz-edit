@@ -1,4 +1,4 @@
 name: "SFXZ Edit"
 version: "0.1.0"
 dependencies:
-  sfxz: "STRd6/sfxz:v0.3.0"
+  sfxz: "STRd6/sfxz:v0.3.1"

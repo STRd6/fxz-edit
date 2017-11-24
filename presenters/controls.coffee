@@ -36,13 +36,16 @@ controlGroups =
       name: "Frequency Mult"
       signed: true
     arpSpeed:
-      name: "Frequency Mult Δ"
+      name: "Time"
   "Duty Cycle":
     duty:
       name: "Duty Cycle"
     dutySweep:
       name: "Sweep"
       signed: true
+  Retrigger:
+    repeatSpeed:
+      name: "Rate"
   Flanger:
     flangerOffset:
       name: "Offset"
