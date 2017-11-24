@@ -120,6 +120,7 @@ module.exports = (effect) ->
           change: ({target}) ->
             value parseInt(target.value, 10)
             alterAndPlay()
+          value: value
 
         return groupElement
 

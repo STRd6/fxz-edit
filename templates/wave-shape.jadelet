@@ -1,6 +1,7 @@
 - RadioTemplate = require "./radio"
 section.wave-shape
-  = RadioTemplate name: "Square", value: 0, change: @change
-  = RadioTemplate name: "Sawtooth", value: 1, change: @change
-  = RadioTemplate name: "Sine", value: 2, change: @change
-  = RadioTemplate name: "Noise", value: 3, change: @change
+  - value = @value
+  = RadioTemplate name: "Square", value: 0, change: @change, checked: -> value().toString() is "0"
+  = RadioTemplate name: "Sawtooth", value: 1, change: @change, checked: -> value().toString() is "1"
+  = RadioTemplate name: "Sine", value: 2, change: @change, checked: -> value().toString() is "2"
+  = RadioTemplate name: "Noise", value: 3, change: @change, checked: -> value().toString() is "3"
