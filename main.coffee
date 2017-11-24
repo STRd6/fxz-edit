@@ -45,3 +45,5 @@ document.body.appendChild ApplicationTemplate
     createAndPlay("tone")
 
 document.body.appendChild EffectPresenter effect
+
+createAndPlay("laserShoot")
