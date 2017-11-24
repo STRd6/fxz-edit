@@ -24,7 +24,7 @@ module.exports = ->
       type: "application/sfxz"
 
     self.sfxzURL URL.createObjectURL(sfxzBlob)
-  
+
   updateWavURL = ->
     oldURL = self.wavURL()
 
@@ -52,6 +52,10 @@ module.exports = ->
       self.wavFilename "#{type}.wav"
       self.sfxzFilename "#{type}.sfxz"
 
+      self.regenerate()
+
+    fromSFXZ: (buffer) ->
+      Serializer.deserialize(buffer, params)
       self.regenerate()
 
     params: ->

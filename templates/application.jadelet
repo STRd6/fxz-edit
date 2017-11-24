@@ -11,3 +11,4 @@ application
     button(click=@tone) Tone
 
   = @controlsElement
+  = @effectElement

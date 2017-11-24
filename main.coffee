@@ -2,51 +2,33 @@ styleNode = document.createElement("style")
 styleNode.innerHTML = require('./style')
 document.head.appendChild(styleNode)
 
-Effect = require  "./models/effect"
+Drop = require "./lib/drop"
 
-ApplicationTemplate = require "./templates/application"
-ControlsPresenter = require "./presenters/controls"
-EffectPresenter = require "./presenters/effect"
+Drop document, (e) ->
+  return if e.defaultPrevented
 
-effect = Effect()
+  files = e.dataTransfer.files
 
-controlsElement = ControlsPresenter effect
+  if files.length
+    e.preventDefault()
 
-global.audioContext = new AudioContext
+    # Load all valid sfxz files
+    Array.from(files).forEach (file) ->
+      editor.loadSFXZ file
 
-createAndPlay = (type) ->
-  effect.randomOfType(type)
-  effect.play()
+Editor = require "./editor"
+editor = Editor()
 
-document.body.appendChild ApplicationTemplate
-  controlsElement: controlsElement
-  coin: ->
-    createAndPlay("pickupCoin")
+document.body.appendChild editor.element
 
-  laser: ->
-    createAndPlay("laserShoot")
+editor.createAndPlay("laserShoot")
 
-  explosion: ->
-    createAndPlay("explosion")
+Blob::readAsArrayBuffer = ->
+  file = this
 
-  powerUp: ->
-    createAndPlay("powerUp")
-
-  hit: ->
-    createAndPlay("hitHurt")
-
-  jump: ->
-    createAndPlay("jump")
-
-  blip: ->
-    createAndPlay("blipSelect")
-
-  tone: ->
-    createAndPlay("tone")
-
-  random: ->
-    createAndPlay("random")
-
-document.body.appendChild EffectPresenter effect
-
-createAndPlay("laserShoot")
+  new Promise (resolve, reject) ->
+    reader = new FileReader
+    reader.onload = ->
+      resolve reader.result
+    reader.onerror = reject
+    reader.readAsArrayBuffer(file)
