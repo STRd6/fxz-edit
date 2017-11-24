@@ -112,6 +112,10 @@ module.exports = (effect) ->
         min: min
         max: max
         step: step
+        input: ->
+          effect.regenerate()
+          unless effect.playing()
+            effect.play()
 
   effect.on "update", ->
     Object.keys(params).forEach (name) ->

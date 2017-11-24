@@ -1,7 +1,6 @@
 RIFFWAVE = require "./riffwav"
 
 createWavData = (samples, eightBit=false) ->
-  debugger
   if eightBit
     bitsPerSample = 8
     buffer = new Uint8Array(samples.length)

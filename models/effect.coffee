@@ -63,11 +63,18 @@ module.exports = ->
     sfxzFilename: "sound.sfxz"
     sfxzURL: Observable null
 
+    playing: Observable false
+
     play: ->
       # Play buffer
       node = new AudioBufferSourceNode audioContext,
         buffer: audioBuffer
       node.connect audioContext.destination
+      node.addEventListener "ended", (e) ->
+        console.log "Ended", e
+        self.playing(false)
+
+      self.playing true
       node.start()
 
     on: (type, listener) ->
