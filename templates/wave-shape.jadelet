@@ -1,0 +1,6 @@
+- RadioTemplate = require "./radio"
+section.wave-shape
+  = RadioTemplate name: "Square", value: 0, change: @change
+  = RadioTemplate name: "Sawtooth", value: 1, change: @change
+  = RadioTemplate name: "Sine", value: 2, change: @change
+  = RadioTemplate name: "Noise", value: 3, change: @change

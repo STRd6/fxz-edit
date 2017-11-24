@@ -1,4 +1,5 @@
 ControlTemplate = require "../templates/control"
+WaveShapeTemplate = require "../templates/wave-shape"
 # Pull in bundled Observable from editor
 {Observable} = require "/lib/jadelet-runtime"
 
@@ -86,6 +87,11 @@ module.exports = (effect) ->
   params = effect.params()
 
   observableProps = {}
+  
+  alterAndPlay = ->
+    effect.regenerate()
+    unless effect.playing()
+      effect.play()
 
   Object.keys(controlGroups).map (groupName) ->
     group = controlGroups[groupName]
@@ -109,6 +115,14 @@ module.exports = (effect) ->
       value.observe (newValue) ->
         params[property] = newValue
 
+      if groupName is "Wave"
+        groupElement.appendChild WaveShapeTemplate
+          change: ({target}) ->
+            value parseInt(target.value, 10)
+            alterAndPlay()
+
+        return groupElement
+
       groupElement.appendChild ControlTemplate
         name: name
         value: value
@@ -116,9 +130,7 @@ module.exports = (effect) ->
         max: max
         step: step
         input: ->
-          effect.regenerate()
-          unless effect.playing()
-            effect.play()
+          alterAndPlay()
 
   effect.on "update", ->
     Object.keys(params).forEach (name) ->

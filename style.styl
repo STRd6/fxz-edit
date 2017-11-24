@@ -34,6 +34,34 @@ section.group
   > h2
     font-size: 12px
 
+section.wave-shape > label
+  align-items: center
+  display: flex
+  justify-content: space-between
+  padding: 0 0 4px
+
+  > h3
+    display: inline
+    font-size: 1em
+    font-weight: normal
+    margin: 0
+    margin-right: 4px
+  
+  > input[type="radio"]
+    display: none
+
+span.checked::before
+  content: "☑"
+
+span.unchecked::before
+  content: "☐"
+
+input[type="radio"]:checked ~ span.unchecked
+  display: none
+
+input[type="radio"]:not(:checked) ~ span.checked
+  display: none
+
 section.control
   align-items: center
   display: flex
