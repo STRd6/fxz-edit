@@ -44,6 +44,9 @@ document.body.appendChild ApplicationTemplate
   tone: ->
     createAndPlay("tone")
 
+  random: ->
+    createAndPlay("random")
+
 document.body.appendChild EffectPresenter effect
 
 createAndPlay("laserShoot")

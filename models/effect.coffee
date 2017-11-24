@@ -49,6 +49,9 @@ module.exports = ->
     randomOfType: (type) ->
       params = Mutator[type](Mutator.reset(params))
 
+      self.wavFilename "#{type}.wav"
+      self.sfxzFilename "#{type}.sfxz"
+
       self.regenerate()
 
     params: ->
@@ -57,10 +60,10 @@ module.exports = ->
     samples: ->
       audioBuffer.getChannelData(0)
 
-    wavFilename: "sound.wav"
+    wavFilename: Observable "sound.wav"
     wavURL: Observable null
 
-    sfxzFilename: "sound.sfxz"
+    sfxzFilename: Observable "sound.sfxz"
     sfxzURL: Observable null
 
     playing: Observable false

@@ -103,7 +103,7 @@ module.exports = {
       p.arpSpeed = 0.6 + frnd(0.3);
       p.arpMod = 0.8 - frnd(1.6);
     }
-  
+
     return p;
   },
   powerUp: function (p) {
@@ -127,7 +127,7 @@ module.exports = {
     p.attack = 0;
     p.sustain = frnd(0.4);
     p.decay = 0.1 + frnd(0.4);
-  
+
     return p;
   },
   hitHurt: function (p) {
@@ -208,7 +208,7 @@ module.exports = {
     if (rnd(1)) p.arpMod += frnd(0.1) - 0.05;
     return p
   },
-  randomize: function (p) {
+  random: function (p) {
     if (rnd(1))
       p.freq = cube(frnd(2) - 1) + 0.5;
     else
