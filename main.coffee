@@ -6,6 +6,7 @@ Effect = require  "./models/effect"
 
 ApplicationTemplate = require "./templates/application"
 ControlsPresenter = require "./presenters/controls"
+EffectPresenter = require "./presenters/effect"
 
 effect = Effect()
 
@@ -42,3 +43,5 @@ document.body.appendChild ApplicationTemplate
 
   tone: ->
     createAndPlay("tone")
+
+document.body.appendChild EffectPresenter effect

@@ -1,4 +1,6 @@
-div.effect
-  a(href=@wavURL download=true) Download .wav
-  a(href=@sfxzURL download=true) Download .sfxz
+.effect
+  .actions
+    button(click=@play) ▶ Play
+    a(href=@wavURL download=@wavFilename) Download .wav
+    a(href=@sfxzURL download=@sfxzFilename) Download .sfxz
   = @canvas

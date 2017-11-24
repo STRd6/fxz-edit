@@ -2,8 +2,6 @@ ControlTemplate = require "../templates/control"
 # Pull in bundled Observable from editor
 {Observable} = require "/lib/jadelet-runtime"
 
-Spectrum = require "../spectrum"
-
 controlGroups =
   Wave:
     shape:
@@ -118,11 +116,5 @@ module.exports = (effect) ->
   effect.on "update", ->
     Object.keys(params).forEach (name) ->
       observableProps[name]?(params[name])
-
-    Spectrum(effect.samples(), timeDomainCanvas)
-
-  timeDomainCanvas = document.createElement 'canvas'
-
-  element.appendChild timeDomainCanvas
 
   return element

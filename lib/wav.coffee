@@ -1,4 +1,7 @@
+RIFFWAVE = require "./riffwav"
+
 createWavData = (samples, eightBit=false) ->
+  debugger
   if eightBit
     bitsPerSample = 8
     buffer = new Uint8Array(samples.length)
@@ -37,13 +40,11 @@ createWavData = (samples, eightBit=false) ->
   clipCount: clipCount
   bitsPerSample: bitsPerSample
 
-createWavFile = (samples) ->
+module.exports = (samples, sampleRate=44100) ->
   {buffer, clipCount, bitsPerSample} = createWavData(samples)
 
   wave = new RIFFWAVE()
-  wave.header.sampleRate = 44100
+  wave.header.sampleRate = sampleRate
   wave.header.bitsPerSample = bitsPerSample
-  wave.Make(buffer)
-  wave.clipping = clipCount
 
-  return wave
+  return wave.Make(buffer)
