@@ -16,10 +16,15 @@ Drop document, (e) ->
     Array.from(files).forEach (file) ->
       editor.loadSFXZ file
 
+Hotkeys = require "./lib/hotkeys"
+
 Editor = require "./editor"
 editor = Editor()
 
 document.body.appendChild editor.element
+
+Hotkeys.add " ", ->
+  editor.play()
 
 editor.createAndPlay("laserShoot")
 

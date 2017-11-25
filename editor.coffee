@@ -61,3 +61,5 @@ module.exports = ->
       .then (buffer) ->
         effect.fromSFXZ(buffer)
     element: element
+    play: ->
+      effect.play()
