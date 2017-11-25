@@ -235,7 +235,7 @@
     },
     "pixie.cson": {
       "path": "pixie.cson",
-      "content": "name: \"SFXZ Edit\"\nversion: \"0.1.0\"\ndependencies:\n  sfxz: \"STRd6/sfxz:v0.3.1\"\n",
+      "content": "name: \"SFXZ Edit\"\nversion: \"0.1.0\"\ndependencies:\n  sfxz: \"STRd6/sfxz:v0.3.1\"\npublish:\n  s3:\n    basePath: \"public/danielx.net\"\n",
       "mode": "100644",
       "type": "blob"
     },
@@ -345,7 +345,7 @@
     },
     "pixie": {
       "path": "pixie",
-      "content": "module.exports = {\"name\":\"SFXZ Edit\",\"version\":\"0.1.0\",\"dependencies\":{\"sfxz\":\"STRd6/sfxz:v0.3.1\"}};",
+      "content": "module.exports = {\"name\":\"SFXZ Edit\",\"version\":\"0.1.0\",\"dependencies\":{\"sfxz\":\"STRd6/sfxz:v0.3.1\"},\"publish\":{\"s3\":{\"basePath\":\"public/danielx.net\"}}};",
       "type": "blob"
     },
     "presenters/controls": {
@@ -422,6 +422,11 @@
     "version": "0.1.0",
     "dependencies": {
       "sfxz": "STRd6/sfxz:v0.3.1"
+    },
+    "publish": {
+      "s3": {
+        "basePath": "public/danielx.net"
+      }
     }
   },
   "version": "0.1.0",
