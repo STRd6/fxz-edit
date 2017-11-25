@@ -48,11 +48,15 @@ section.generators
 
 section.controls
   display: flex
-  flex-wrap: wrap
 
-section.group
-  > h2
-    font-size: 12px
+  > section.group
+    flex: 1
+
+    &:first-child
+      flex: 0
+
+    > h2
+      font-size: 12px
 
 section.wave-shape > label
   align-items: center
@@ -86,6 +90,9 @@ section.control
   align-items: center
   display: flex
   position: relative
+
+  > input[type="range"]
+    width: 100%
 
   > label
     position: absolute

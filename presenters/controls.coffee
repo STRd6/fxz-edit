@@ -4,7 +4,7 @@ WaveShapeTemplate = require "../templates/wave-shape"
 {Observable} = require "/lib/jadelet-runtime"
 
 controlGroups =
-  Wave:
+  "Wave Shape":
     shape:
       name: "Shape"
   Envelope:
@@ -16,6 +16,8 @@ controlGroups =
       name: "Sustain Punch"
     decay:
       name: "Decay"
+    repeatSpeed:
+      name: "Retrigger Rate"
   Frequency:
     freq:
       name: "Frequency"
@@ -27,46 +29,39 @@ controlGroups =
     freqSlideDelta:
       name: "Frequency Slide Δ"
       signed: true
-  Vibrato:
-    vibDepth:
-      name: "Vibrato Depth"
-    vibSpeed:
-      name: "Vibrato Speed"
-  Arpeggiation:
     arpMod:
       name: "Frequency Mult"
       signed: true
     arpSpeed:
-      name: "Time"
-  "Duty Cycle":
+      name: "Mult Time"
+  FX:
+    vibDepth:
+      name: "Vibrato Depth"
+    vibSpeed:
+      name: "Vibrato Speed"
     duty:
       name: "Duty Cycle"
     dutySweep:
-      name: "Sweep"
+      name: "Duty Sweep"
       signed: true
-  Retrigger:
-    repeatSpeed:
-      name: "Rate"
-  Flanger:
     flangerOffset:
-      name: "Offset"
+      name: "Flanger Offset"
       signed: true
     flangerSweep:
-      name: "Sweep"
+      name: "Flanger Sweep"
       signed: true
-  "Low-Pass Filter":
+  Filter:
     lpf:
-      name: "Cutoff Freq"
+      name: "LPF Cutoff"
     lpfSweep:
-      name: "Cutoff Sweep"
+      name: "LPF Cutoff Sweep"
       signed: true
     lpfResonance:
-      name: "Resonance"
-  "High-Pass Filter":
+      name: "LPF Resonance"
     hpf:
-      name: "Cutoff Freq"
+      name: "HPF Cutoff"
     hpfSweep:
-      name: "Cutoff Sweep"
+      name: "HPF Cutoff Sweep"
       signed: true
 
 Section = (className) ->
@@ -93,14 +88,14 @@ module.exports = (effect) ->
     unless effect.playing()
       effect.play()
 
-  Object.keys(controlGroups).map (groupName) ->
+  Object.keys(controlGroups).forEach (groupName) ->
     group = controlGroups[groupName]
 
     groupElement = Section("group")
     groupElement.appendChild H2 groupName
     element.appendChild groupElement
 
-    Object.keys(group).map (property) ->
+    Object.keys(group).forEach (property) ->
       {name, signed} = group[property]
 
       if signed
@@ -115,7 +110,7 @@ module.exports = (effect) ->
       value.observe (newValue) ->
         params[property] = newValue
 
-      if groupName is "Wave"
+      if groupName is "Wave Shape"
         groupElement.appendChild WaveShapeTemplate
           change: ({target}) ->
             value parseInt(target.value, 10)
