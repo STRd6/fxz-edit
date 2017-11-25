@@ -2,3 +2,6 @@ name: "SFXZ Edit"
 version: "0.1.0"
 dependencies:
   sfxz: "STRd6/sfxz:v0.3.1"
+publish:
+  s3:
+    basePath: "public/danielx.net"
