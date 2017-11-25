@@ -18,6 +18,8 @@ controlGroups =
       name: "Decay"
     repeatSpeed:
       name: "Retrigger Rate"
+    vol:
+      name: "Volume"
   Frequency:
     freq:
       name: "Frequency"

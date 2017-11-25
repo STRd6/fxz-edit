@@ -3,6 +3,7 @@
 Effect = require  "./models/effect"
 
 ApplicationTemplate = require "./templates/application"
+EffectActionsTemplate = require "./templates/effect-actions"
 ControlsPresenter = require "./presenters/controls"
 EffectPresenter = require "./presenters/effect"
 
@@ -11,6 +12,7 @@ module.exports = ->
 
   controlsElement = ControlsPresenter effect
   effectElement = EffectPresenter effect
+  effectActionsElement = EffectActionsTemplate effect
 
   global.audioContext = new AudioContext
 
@@ -21,6 +23,7 @@ module.exports = ->
   element = ApplicationTemplate
     controlsElement: controlsElement
     effectElement: effectElement
+    effectActionsElement: effectActionsElement
     coin: ->
       createAndPlay("pickupCoin")
   
