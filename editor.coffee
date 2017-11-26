@@ -6,6 +6,7 @@ ApplicationTemplate = require "./templates/application"
 EffectActionsTemplate = require "./templates/effect-actions"
 ControlsPresenter = require "./presenters/controls"
 EffectPresenter = require "./presenters/effect"
+HistoryPresenter = require "./presenters/history"
 
 module.exports = ->
   effect = Effect()
@@ -14,16 +15,23 @@ module.exports = ->
   effectElement = EffectPresenter effect
   effectActionsElement = EffectActionsTemplate effect
 
+  historyElement = HistoryPresenter (buffer) ->
+    self.loadBuffer buffer
+    effect.play()
+
   global.audioContext = new AudioContext
 
   createAndPlay = (type) ->
     effect.randomOfType(type)
     effect.play()
+
+    historyElement.add(effect, type)
   
   element = ApplicationTemplate
     controlsElement: controlsElement
     effectElement: effectElement
     effectActionsElement: effectActionsElement
+    historyElement: historyElement
     coin: ->
       createAndPlay("pickupCoin")
   
@@ -58,8 +66,11 @@ module.exports = ->
     createAndPlay: createAndPlay
     loadSFXZ: (file) ->
       file.readAsArrayBuffer()
-      .then (buffer) ->
-        effect.fromSFXZ(buffer)
+      .then self.loadBuffer
+    loadBuffer: (buffer) ->
+      effect.fromSFXZ(buffer)
     element: element
     play: ->
       effect.play()
+
+  return self

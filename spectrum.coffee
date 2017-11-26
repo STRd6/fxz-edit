@@ -1,8 +1,8 @@
-module.exports = (buffer, canvas, displayWidth) ->
+module.exports = (buffer, canvas, displayWidth, displayHeight=200) ->
   sampleRate = 44100
   xScale = displayWidth / buffer.length
   width = displayWidth
-  height = 200
+  height = displayHeight
 
   canvas.width = width
   canvas.height = height

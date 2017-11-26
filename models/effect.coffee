@@ -12,6 +12,7 @@ module.exports = ->
 
   audioBuffer = null
   sfxzBlob = null
+  sfxzBuffer = null
 
   updateSfxzURL = ->
     oldURL = self.sfxzURL()
@@ -67,6 +68,8 @@ module.exports = ->
     wavFilename: Observable "sound.wav"
     wavURL: Observable null
 
+    sfxzBuffer: ->
+      sfxzBuffer
     sfxzFilename: Observable "sound.sfxz"
     sfxzURL: Observable null
 
