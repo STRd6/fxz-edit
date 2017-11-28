@@ -16,12 +16,11 @@ module.exports = (name, effect) ->
       load(buffer)
 
   self =
-    
-  
     buffer: ->
       buffer
     dispose: ->
-      effect.off
+      # Don't leak listeners
+      effect.off "update", update
     element: element
 
   update = ->
