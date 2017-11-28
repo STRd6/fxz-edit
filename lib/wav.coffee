@@ -6,7 +6,7 @@ createWavData = (samples, eightBit=false) ->
     buffer = new Uint8Array(samples.length)
   else
     bitsPerSample = 16
-    buffer = new Uint8Array(samples.length * 2)  
+    buffer = new Uint8Array(samples.length * 2)
 
   clipCount = 0
 

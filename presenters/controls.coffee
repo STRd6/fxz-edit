@@ -84,7 +84,7 @@ module.exports = (effect) ->
   params = effect.params()
 
   observableProps = {}
-  
+
   alterAndPlay = ->
     effect.regenerate()
     unless effect.playing()

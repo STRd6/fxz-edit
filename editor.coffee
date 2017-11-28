@@ -26,7 +26,7 @@ module.exports = ->
     effect.play()
 
     historyElement.add(effect, type)
-  
+
   element = ApplicationTemplate
     controlsElement: controlsElement
     effectElement: effectElement
@@ -34,28 +34,28 @@ module.exports = ->
     historyElement: historyElement
     coin: ->
       createAndPlay("pickupCoin")
-  
+
     laser: ->
       createAndPlay("laserShoot")
-  
+
     explosion: ->
       createAndPlay("explosion")
-  
+
     powerUp: ->
       createAndPlay("powerUp")
-  
+
     hit: ->
       createAndPlay("hitHurt")
-  
+
     jump: ->
       createAndPlay("jump")
-  
+
     blip: ->
       createAndPlay("blipSelect")
-  
+
     tone: ->
       createAndPlay("tone")
-  
+
     random: ->
       createAndPlay("random")
 
