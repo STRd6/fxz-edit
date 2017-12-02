@@ -1,6 +1,7 @@
 # Pull in bundled Observable from editor
 {Observable} = require "/lib/jadelet-runtime"
 
+Trigger = require "./trigger"
 Wav = require "../lib/wav"
 
 {Params, Serializer} = FXZ = require "fxz"
@@ -34,8 +35,6 @@ module.exports = ->
 
     wavFile = Wav(self.samples())
     self.wavURL URL.createObjectURL(wavFile)
-
-  listeners = {}
 
   self =
     regenerate: ->
@@ -87,21 +86,7 @@ module.exports = ->
       self.playing true
       node.start()
 
-    on: (type, listener) ->
-      listeners[type] ?= []
-      listeners[type].push listener
-
-      return self
-
-    off: (type, listener) ->
-      activeListeners = listeners[type]
-
-      if activeListeners
-        remove(activeListeners, listener)
-
-    trigger: (type, args...) ->
-      listeners[type]?.forEach (listener) ->
-        listener.apply(self, args...)
+  Trigger(self)
 
   return self
 

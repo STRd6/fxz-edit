@@ -1,25 +1,26 @@
 {Params, Serializer} = FXZ = require "fxz"
 
+Spectrum = require "./spectrum"
+
 Effect = require  "./models/effect"
 
 ApplicationTemplate = require "./templates/application"
 EffectActionsTemplate = require "./templates/effect-actions"
 ControlsPresenter = require "./presenters/controls"
-EffectPresenter = require "./presenters/effect"
 CollectionView = require "./views/collection"
 
 module.exports = ->
   effect = Effect()
 
-  controlsElement = ControlsPresenter effect
-  effectElement = EffectPresenter effect
   effectActionsElement = EffectActionsTemplate effect
 
   collectionView = CollectionView()
+  controlsElement = ControlsPresenter collectionView.activeItem
 
   global.audioContext = new AudioContext
 
   createAndPlay = (type) ->
+    effect = Effect()
     effect.randomOfType(type)
     effect.play()
 
@@ -27,7 +28,6 @@ module.exports = ->
 
   element = ApplicationTemplate
     controlsElement: controlsElement
-    effectElement: effectElement
     effectActionsElement: effectActionsElement
     collectionElement: collectionView.element
     coin: ->
@@ -70,5 +70,13 @@ module.exports = ->
     element: element
     play: ->
       effect.play()
+
+  timeDomainCanvas = element.querySelector "canvas"
+  repaint = (effect) ->
+    Spectrum(effect.samples(), timeDomainCanvas, timeDomainCanvas.clientWidth)
+
+  collectionView.activeItem.observe repaint
+  controlsElement.on "update", ->
+    repaint(collectionView.activeItem())
 
   return self

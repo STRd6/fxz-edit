@@ -3,6 +3,8 @@ WaveShapeTemplate = require "../templates/wave-shape"
 # Pull in bundled Observable from editor
 {Observable} = require "/lib/jadelet-runtime"
 
+Trigger = require "../models/trigger"
+
 controlGroups =
   "Wave Shape":
     shape:
@@ -78,15 +80,17 @@ H2 = (text) ->
 
   return h2
 
-module.exports = (effect) ->
+module.exports = (activeEffect) ->
   element = Section("controls")
-
-  params = effect.params()
 
   observableProps = {}
 
   alterAndPlay = ->
+    effect = activeEffect()
+    return unless effect
+
     effect.regenerate()
+    element.trigger("update")
     unless effect.playing()
       effect.play()
 
@@ -108,9 +112,9 @@ module.exports = (effect) ->
       step = 0.001
       max = 1
 
-      value = observableProps[property] = Observable params[property]
+      value = observableProps[property] = Observable 0
       value.observe (newValue) ->
-        params[property] = newValue
+        activeEffect()?.params()[property] = newValue
 
       if groupName is "Wave Shape"
         groupElement.appendChild WaveShapeTemplate
@@ -130,8 +134,15 @@ module.exports = (effect) ->
         input: ->
           alterAndPlay()
 
-  effect.on "update", ->
+  resyncProps = (effect) ->
+    return unless effect
+
+    params = effect.params()
     Object.keys(params).forEach (name) ->
       observableProps[name]?(params[name])
+
+  activeEffect.observe resyncProps
+
+  Trigger(element)
 
   return element

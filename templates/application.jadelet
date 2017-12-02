@@ -11,7 +11,7 @@ application
     button(click=@tone) Tone
     button(click=@play) ▶ Play
 
-  = @effectElement
+  canvas
   = @controlsElement
   = @collectionElement
   = @effectActionsElement
