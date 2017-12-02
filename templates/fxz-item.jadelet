@@ -1,0 +1,4 @@
+div.fxz-item(@click)
+  label
+    input(value=@name)
+  canvas(height="32" width="200")

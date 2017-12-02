@@ -48,7 +48,7 @@ module.exports = ->
       self.trigger "update"
 
     randomOfType: (type) ->
-      params = Mutator[type](Mutator.reset(params))
+      Mutator[type](Mutator.reset(params))
 
       self.wavFilename "#{type}.wav"
       self.fxzFilename "#{type}.fxz"

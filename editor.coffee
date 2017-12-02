@@ -6,7 +6,7 @@ ApplicationTemplate = require "./templates/application"
 EffectActionsTemplate = require "./templates/effect-actions"
 ControlsPresenter = require "./presenters/controls"
 EffectPresenter = require "./presenters/effect"
-HistoryPresenter = require "./presenters/history"
+CollectionView = require "./views/collection"
 
 module.exports = ->
   effect = Effect()
@@ -15,9 +15,7 @@ module.exports = ->
   effectElement = EffectPresenter effect
   effectActionsElement = EffectActionsTemplate effect
 
-  historyElement = HistoryPresenter (buffer) ->
-    self.loadBuffer buffer
-    effect.play()
+  collectionView = CollectionView()
 
   global.audioContext = new AudioContext
 
@@ -25,13 +23,13 @@ module.exports = ->
     effect.randomOfType(type)
     effect.play()
 
-    historyElement.add(effect, type)
+    collectionView.add(type, effect)
 
   element = ApplicationTemplate
     controlsElement: controlsElement
     effectElement: effectElement
     effectActionsElement: effectActionsElement
-    historyElement: historyElement
+    collectionElement: collectionView.element
     coin: ->
       createAndPlay("pickupCoin")
 

@@ -1,0 +1,4 @@
+section.collection
+  label
+    input(value=@name)
+  = @itemElements

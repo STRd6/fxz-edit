@@ -13,5 +13,5 @@ application
 
   = @effectElement
   = @controlsElement
-  = @historyElement
+  = @collectionElement
   = @effectActionsElement

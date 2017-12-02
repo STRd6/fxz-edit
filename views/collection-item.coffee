@@ -1,19 +1,16 @@
 # TODO: WIP Collection item view to make adding and interacting with effect
 # items easier
 
-HistoryItemTemplate = require "../templates/history-item"
+ItemTemplate = require "../templates/fxz-item"
 Spectrum = require "../spectrum"
 
-module.exports = (name, effect) ->
-  element = HistoryTemplate()
-
-  waveformCanvas = document.createElement "canvas"
-
-  element = HistoryItemTemplate
+module.exports = (name, effect, select) ->
+  element = ItemTemplate
     name: name
-    waveform: waveformCanvas
     click: ->
-      load(buffer)
+      select(effect)
+
+  waveformCanvas = element.querySelector('canvas')
 
   self =
     buffer: ->
@@ -25,11 +22,13 @@ module.exports = (name, effect) ->
 
   update = ->
     buffer = effect.fxzBuffer()
-    # TODO: Resize canvas to be full width
-    Spectrum effect.samples(), waveformCanvas, 200, 32
+    Spectrum effect.samples(), waveformCanvas, waveformCanvas.clientWidth, 32
 
   effect.on "update", update
 
-  update()
+  # TODO: This is because we need to wait until we're added to the dom before
+  # contentWidth exists
+  setTimeout ->
+    update()
 
   return self

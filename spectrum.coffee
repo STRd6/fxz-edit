@@ -4,16 +4,19 @@ module.exports = (buffer, canvas, displayWidth, displayHeight=200) ->
   width = displayWidth
   height = displayHeight
 
+  timeDomainColor = "#F00"
+  backgroundColor = "black"
+
   canvas.width = width
   canvas.height = height
 
   context = canvas.getContext('2d')
 
-  context.fillStyle = "black"
+  context.fillStyle = backgroundColor
   context.fillRect(0, 0, width, height)
 
   context.lineWidth = 2
-  context.strokeStyle = "#F00"
+  context.strokeStyle = timeDomainColor
 
   # Plot time domain
   buffer.forEach (value, index) ->

@@ -1,5 +1,5 @@
 HistoryTemplate = require "../templates/history"
-HistoryItemTemplate = require "../templates/history-item"
+HistoryItemTemplate = require "../templates/fxz-item"
 Spectrum = require "../spectrum"
 
 module.exports = (load) ->
