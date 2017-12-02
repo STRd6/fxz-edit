@@ -3,7 +3,7 @@
 
 Wav = require "../lib/wav"
 
-{Params, Serializer} = SFXZ = require "sfxz"
+{Params, Serializer} = FXZ = require "fxz"
 
 Mutator = require "../mutator"
 
@@ -11,20 +11,20 @@ module.exports = ->
   params = new Params
 
   audioBuffer = null
-  sfxzBlob = null
-  sfxzBuffer = null
+  fxzBlob = null
+  fxzBuffer = null
 
-  updateSfxzURL = ->
-    oldURL = self.sfxzURL()
+  updateFxzURL = ->
+    oldURL = self.fxzURL()
 
     if oldURL
       URL.revokeObjectURL(oldURL)
 
-    sfxzBuffer = Serializer.serialize(params)
-    sfxzBlob = new Blob [sfxzBuffer],
-      type: "application/sfxz"
+    fxzBuffer = Serializer.serialize(params)
+    fxzBlob = new Blob [fxzBuffer],
+      type: "application/fxz"
 
-    self.sfxzURL URL.createObjectURL(sfxzBlob)
+    self.fxzURL URL.createObjectURL(fxzBlob)
 
   updateWavURL = ->
     oldURL = self.wavURL()
@@ -40,9 +40,9 @@ module.exports = ->
   self =
     regenerate: ->
       # Generate audio data
-      audioBuffer = SFXZ(params, audioContext)
+      audioBuffer = FXZ(params, audioContext)
 
-      updateSfxzURL()
+      updateFxzURL()
       updateWavURL()
 
       self.trigger "update"
@@ -51,11 +51,11 @@ module.exports = ->
       params = Mutator[type](Mutator.reset(params))
 
       self.wavFilename "#{type}.wav"
-      self.sfxzFilename "#{type}.sfxz"
+      self.fxzFilename "#{type}.fxz"
 
       self.regenerate()
 
-    fromSFXZ: (buffer) ->
+    fromFXZ: (buffer) ->
       Serializer.deserialize(buffer, params)
       self.regenerate()
 
@@ -68,10 +68,10 @@ module.exports = ->
     wavFilename: Observable "sound.wav"
     wavURL: Observable null
 
-    sfxzBuffer: ->
-      sfxzBuffer
-    sfxzFilename: Observable "sound.sfxz"
-    sfxzURL: Observable null
+    fxzBuffer: ->
+      fxzBuffer
+    fxzFilename: Observable "sound.fxz"
+    fxzURL: Observable null
 
     playing: Observable false
 
@@ -92,10 +92,10 @@ module.exports = ->
       listeners[type].push listener
 
       return self
-    
+
     off: (type, listener) ->
       activeListeners = listeners[type]
-      
+
       if activeListeners
         remove(activeListeners, listener)
 

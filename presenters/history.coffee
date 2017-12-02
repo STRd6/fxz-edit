@@ -12,7 +12,7 @@ module.exports = (load) ->
 
     waveformCanvas = document.createElement "canvas"
 
-    buffer = effect.sfxzBuffer()
+    buffer = effect.fxzBuffer()
     Spectrum effect.samples(), waveformCanvas, 200, 32
 
     element.appendChild HistoryItemTemplate

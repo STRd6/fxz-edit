@@ -1,4 +1,4 @@
-{Params, Serializer} = SFXZ = require "sfxz"
+{Params, Serializer} = FXZ = require "fxz"
 
 Effect = require  "./models/effect"
 
@@ -64,11 +64,11 @@ module.exports = ->
 
   self =
     createAndPlay: createAndPlay
-    loadSFXZ: (file) ->
+    loadFXZ: (file) ->
       file.readAsArrayBuffer()
       .then self.loadBuffer
     loadBuffer: (buffer) ->
-      effect.fromSFXZ(buffer)
+      effect.fromFXZ(buffer)
     element: element
     play: ->
       effect.play()

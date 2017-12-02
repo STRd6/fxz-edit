@@ -24,7 +24,7 @@ module.exports = (name, effect) ->
     element: element
 
   update = ->
-    buffer = effect.sfxzBuffer()
+    buffer = effect.fxzBuffer()
     # TODO: Resize canvas to be full width
     Spectrum effect.samples(), waveformCanvas, 200, 32
 

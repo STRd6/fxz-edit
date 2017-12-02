@@ -1,7 +1,7 @@
 name: "FXZ Edit"
 version: "0.1.0"
 dependencies:
-  sfxz: "STRd6/fxz:v0.3.2"
+  fxz: "STRd6/fxz:v0.3.2"
 publish:
   s3:
     basePath: "public/danielx.net"

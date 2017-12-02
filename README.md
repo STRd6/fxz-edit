@@ -1,7 +1,7 @@
-sfxz-edit
-=========
+fxz-edit
+========
 
-An editor for sfxz, like jsfxr.
+A web based editor for fxz data, like jsfxr.
 
 Notes
 -----
@@ -20,10 +20,10 @@ Download a .js that embeds the synth, the sounds (base64), and a mapping api for
 easy use in games / standalone.
 Remove entry from "Collection"
 Editing the effect should be reflected in the history items (update data re-render).
-'Duplicate' button on history entries so people can fork and mutate an effect they like.
+'Duplicate' button on history entries so people can fork and mutate effects they like.
 Re-render spectrums on page resize.
 Download buttons on history entries.
-Download a 'whole pack' of sfxz. Just 100 byte sfxzs all concated together.
+Download a 'whole pack' of fxz. Just 100 byte fxz with name metadata.
 Rename items in history, auto-sort by name.
 Maybe change "History" to "Collection"
 Undo/Redo
