@@ -52,14 +52,19 @@ application
 
 section.generators
   display: flex
+  flex: 0 0 auto
+
   > button
     flex: 1
 
 section.controls
   display: flex
+  flex: 0 0 auto
 
   > section.group
+    display: flex
     flex: 1
+    flex-direction: column
 
     &:first-child
       flex: 0
@@ -96,12 +101,15 @@ input[type="radio"]:not(:checked) ~ span.checked
   display: none
 
 section.collection
-  overflow: auto
+  display: flex
+  flex: 1
+  flex-direction: column
 
-  > div
-    display: flex
+  > div.items
+    overflow: auto
 
 div.fxz-item
+  display: flex
   height: 32px
 
   > canvas

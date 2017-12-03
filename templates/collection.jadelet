@@ -1,3 +1,4 @@
 section.collection
   h2 Collection
-  = @itemElements
+  .items
+    = @itemElements
