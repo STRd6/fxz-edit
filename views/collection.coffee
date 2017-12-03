@@ -22,6 +22,12 @@ module.exports = ->
 
       self.activeItem(effect)
 
+    clear: ->
+      items.forEach (item) ->
+        item.dispose()
+
+      items []
+
     itemElements: ->
       items.map (item) -> item.element
 

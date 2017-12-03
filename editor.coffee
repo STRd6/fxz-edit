@@ -58,16 +58,43 @@ module.exports = ->
     activeEffect: ->
       collectionView.activeItem()
     createAndPlay: createAndPlay
-    loadFXZ: (file) ->
+    loadFile: (file) ->
       file.readAsArrayBuffer()
       .then (buffer) ->
-        self.loadBuffer buffer, file.name.replace(/\.s?fxz$/, "")
-    loadBuffer: (buffer, name="unknown") ->
+        dataView = new DataView(buffer)
+        header = dataView.getUint32(0, true)
+
+        if header is 24672358 # fxx v1 magic number
+          self.loadFXX buffer
+        else if header is 24803430 # fxz v1 magic number
+          self.loadFXZ buffer, file.name.replace(/\.s?fxz$/, "")
+    loadFXX: (buffer) ->
+      collectionView.clear()
+
+      n = 8
+      l = buffer.byteLength
+      while n < l
+        s = n + 16
+        e = s + 100
+        nameBuffer = Uint8Array.from(buffer.slice(n, s))
+        lastNull = nameBuffer.indexOf(0)
+
+        if lastNull >= 0
+          nameBuffer = nameBuffer.slice(0, lastNull)
+
+        name = new TextDecoder("utf-8").decode(nameBuffer)
+        self.loadFXZ(buffer.slice(s, e), name)
+        n = e
+
+      return
+
+    loadFXZ: (buffer, name="unknown") ->
       effect = Effect()
       effect.fromFXZ(buffer)
       effect.name name
 
       collectionView.add(effect)
+
     element: element
     play: ->
       self.activeEffect()?.play()
