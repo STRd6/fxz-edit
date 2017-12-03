@@ -1,9 +1,10 @@
 # Pull in bundled Observable from editor
 {Observable} = require "/lib/jadelet-runtime"
 
+Trigger = require "./trigger"
 Wav = require "../lib/wav"
 
-{Params, Serializer} = SFXZ = require "sfxz"
+{Params, Serializer} = FXZ = require "fxz"
 
 Mutator = require "../mutator"
 
@@ -11,19 +12,20 @@ module.exports = ->
   params = new Params
 
   audioBuffer = null
-  sfxzBlob = null
+  fxzBlob = null
+  fxzBuffer = null
 
-  updateSfxzURL = ->
-    oldURL = self.sfxzURL()
+  updateFxzURL = ->
+    oldURL = self.fxzURL()
 
     if oldURL
       URL.revokeObjectURL(oldURL)
 
-    sfxzBuffer = Serializer.serialize(params)
-    sfxzBlob = new Blob [sfxzBuffer],
-      type: "application/sfxz"
+    fxzBuffer = Serializer.serialize(params)
+    fxzBlob = new Blob [fxzBuffer],
+      type: "application/fxz"
 
-    self.sfxzURL URL.createObjectURL(sfxzBlob)
+    self.fxzURL URL.createObjectURL(fxzBlob)
 
   updateWavURL = ->
     oldURL = self.wavURL()
@@ -34,27 +36,37 @@ module.exports = ->
     wavFile = Wav(self.samples())
     self.wavURL URL.createObjectURL(wavFile)
 
-  listeners = {}
-
   self =
+    name: Observable "unknown"
+
+    duplicate: ->
+      copy = module.exports()
+
+      Object.keys(params).forEach (key) ->
+        value = params[key]
+        copy.params()[key] = value
+
+      copy.regenerate()
+
+      return copy
+
     regenerate: ->
       # Generate audio data
-      audioBuffer = SFXZ(params, audioContext)
+      audioBuffer = FXZ(params, audioContext)
 
-      updateSfxzURL()
+      updateFxzURL()
       updateWavURL()
 
       self.trigger "update"
 
     randomOfType: (type) ->
-      params = Mutator[type](Mutator.reset(params))
+      Mutator[type](Mutator.reset(params))
 
-      self.wavFilename "#{type}.wav"
-      self.sfxzFilename "#{type}.sfxz"
+      self.name(type)
 
       self.regenerate()
 
-    fromSFXZ: (buffer) ->
+    fromFXZ: (buffer) ->
       Serializer.deserialize(buffer, params)
       self.regenerate()
 
@@ -64,11 +76,15 @@ module.exports = ->
     samples: ->
       audioBuffer.getChannelData(0)
 
-    wavFilename: Observable "sound.wav"
+    wavFilename: ->
+      "#{self.name()}.wav"
     wavURL: Observable null
 
-    sfxzFilename: Observable "sound.sfxz"
-    sfxzURL: Observable null
+    fxzBuffer: ->
+      fxzBuffer
+    fxzFilename: ->
+      "#{self.name()}.fxz"
+    fxzURL: Observable null
 
     playing: Observable false
 
@@ -78,20 +94,11 @@ module.exports = ->
         buffer: audioBuffer
       node.connect audioContext.destination
       node.addEventListener "ended", (e) ->
-        console.log "Ended", e
         self.playing(false)
 
       self.playing true
       node.start()
 
-    on: (type, listener) ->
-      listeners[type] ?= []
-      listeners[type].push listener
-
-      return self
-
-    trigger: (type, args...) ->
-      listeners[type]?.forEach (listener) ->
-        listener.apply(self, args...)
+  Trigger(self)
 
   return self

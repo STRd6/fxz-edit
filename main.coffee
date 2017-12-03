@@ -12,9 +12,9 @@ Drop document, (e) ->
   if files.length
     e.preventDefault()
 
-    # Load all valid sfxz files
+    # Load all valid fxx and fxz files
     Array.from(files).forEach (file) ->
-      editor.loadSFXZ file
+      editor.loadFile file
 
 Hotkeys = require "./lib/hotkeys"
 

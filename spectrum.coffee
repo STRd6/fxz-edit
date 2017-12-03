@@ -1,19 +1,23 @@
-module.exports = (buffer, canvas, displayWidth) ->
+module.exports = (buffer, canvas, displayWidth, displayHeight=200) ->
   sampleRate = 44100
   xScale = displayWidth / buffer.length
   width = displayWidth
-  height = 200
+  height = displayHeight
+
+  timeDomainColor = "#F00"
+  backgroundColor = "black"
+  markerColor = "white"
 
   canvas.width = width
   canvas.height = height
 
   context = canvas.getContext('2d')
 
-  context.fillStyle = "black"
+  context.fillStyle = backgroundColor
   context.fillRect(0, 0, width, height)
 
   context.lineWidth = 2
-  context.strokeStyle = "#F00"
+  context.strokeStyle = timeDomainColor
 
   # Plot time domain
   buffer.forEach (value, index) ->
@@ -30,7 +34,6 @@ module.exports = (buffer, canvas, displayWidth) ->
 
   # Plot time markers
   context.lineWidth = 1
-  context.fillStyle = "rgba(255, 255, 255, 0.75)"
 
   marksPerSecond = 16
 
@@ -40,6 +43,11 @@ module.exports = (buffer, canvas, displayWidth) ->
     n += 1
     t = n / marksPerSecond
     x = t * xScale * sampleRate
+
+    context.fillStyle = backgroundColor
+    context.fillText("#{t}", x + 7, 13)
+
+    context.fillStyle = markerColor
     context.fillRect(x, 0, 1, height)
     context.fillText("#{t}", x + 6, 12)
 
