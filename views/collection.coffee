@@ -11,12 +11,14 @@ module.exports = ->
     self.activeItem effect
     effect.play()
 
+  duplicate = (effect) ->
+    self.add(effect.duplicate())
+
   self =
     activeItem: Observable null
 
     add: (effect) ->
-      items.push Item effect, ->
-        selectAndPlay(effect)
+      items.push Item effect, selectAndPlay, items.remove, duplicate
 
       self.activeItem(effect)
 

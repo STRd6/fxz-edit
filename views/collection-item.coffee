@@ -1,14 +1,16 @@
 ItemTemplate = require "../templates/fxz-item"
 Spectrum = require "../spectrum"
 
-module.exports = (effect, select) ->
+module.exports = (effect, select, remove, duplicate) ->
   element = ItemTemplate
     name: effect.name
     click: (e) ->
       select(effect)
     remove: ->
-
+      self.dispose()
+      remove(self)
     duplicate: ->
+      duplicate(effect)
 
     fxzURL: effect.fxzURL
     fxzFilename: effect.fxzFilename
@@ -24,7 +26,6 @@ module.exports = (effect, select) ->
       # Don't leak listeners
       effect.off "update", update
     element: element
-
 
   update = ->
     buffer = effect.fxzBuffer()

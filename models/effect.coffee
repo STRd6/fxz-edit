@@ -38,6 +38,18 @@ module.exports = ->
 
   self =
     name: Observable "unknown"
+
+    duplicate: ->
+      copy = module.exports()
+
+      Object.keys(params).forEach (key) ->
+        value = params[key]
+        copy.params()[key] = value
+
+      copy.regenerate()
+
+      return copy
+
     regenerate: ->
       # Generate audio data
       audioBuffer = FXZ(params, audioContext)
@@ -90,10 +102,3 @@ module.exports = ->
   Trigger(self)
 
   return self
-
-# Array util remove
-remove = (array, item) ->
-  index = array.indexOf item
-
-  if index >= 0
-    return array.splice(index, 1)[0]

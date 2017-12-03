@@ -17,3 +17,10 @@ module.exports = (self) ->
     trigger: (type, args...) ->
       listeners[type]?.forEach (listener) ->
         listener.apply(self, args...)
+
+# Array util remove
+remove = (array, item) ->
+  index = array.indexOf item
+
+  if index >= 0
+    return array.splice(index, 1)[0]
