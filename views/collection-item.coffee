@@ -20,15 +20,15 @@ module.exports = (effect, select, remove, duplicate) ->
   waveformCanvas = element.querySelector('canvas')
 
   self =
-    buffer: ->
-      buffer
+    name: effect.name
+    fxzBuffer: ->
+      effect.fxzBuffer()
     dispose: ->
       # Don't leak listeners
       effect.off "update", update
     element: element
 
   update = ->
-    buffer = effect.fxzBuffer()
     Spectrum effect.samples(), waveformCanvas, waveformCanvas.clientWidth, 32
 
   effect.on "update", update

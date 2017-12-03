@@ -1,4 +1,6 @@
 section.collection
-  h2 Collection
+  h2 
+    | Collection
+    button(click=@download) ⏬.fxp
   .items
     = @itemElements
