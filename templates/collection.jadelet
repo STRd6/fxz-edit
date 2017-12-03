@@ -1,4 +1,3 @@
 section.collection
-  label
-    input(value=@name)
+  h2 Collection
   = @itemElements

@@ -7,11 +7,17 @@ CollectionTemplate = require "../templates/collection"
 module.exports = ->
   items = Observable []
 
+  selectAndPlay = (effect) ->
+    self.activeItem effect
+    effect.play()
+
   self =
     activeItem: Observable null
 
     add: (name, effect) ->
-      items.push Item(name, effect, self.activeItem)
+      items.push Item name, effect, ->
+        selectAndPlay(effect)
+
       self.activeItem(effect)
 
     itemElements: ->

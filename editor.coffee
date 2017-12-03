@@ -10,10 +10,6 @@ ControlsPresenter = require "./presenters/controls"
 CollectionView = require "./views/collection"
 
 module.exports = ->
-  effect = Effect()
-
-  effectActionsElement = EffectActionsTemplate effect
-
   collectionView = CollectionView()
   controlsElement = ControlsPresenter collectionView.activeItem
 
@@ -28,7 +24,6 @@ module.exports = ->
 
   element = ApplicationTemplate
     controlsElement: controlsElement
-    effectActionsElement: effectActionsElement
     collectionElement: collectionView.element
     coin: ->
       createAndPlay("pickupCoin")
@@ -58,18 +53,24 @@ module.exports = ->
       createAndPlay("random")
 
     play: ->
-      effect.play()
+      self.play()
 
   self =
+    activeEffect: ->
+      collectionView.activeItem()
     createAndPlay: createAndPlay
     loadFXZ: (file) ->
       file.readAsArrayBuffer()
-      .then self.loadBuffer
-    loadBuffer: (buffer) ->
+      .then (buffer) ->
+        self.loadBuffer buffer, file.name.replace(/\.s?fxz$/, "")
+    loadBuffer: (buffer, name="unknown") ->
+      effect = Effect()
       effect.fromFXZ(buffer)
+
+      collectionView.add(name, effect)
     element: element
     play: ->
-      effect.play()
+      self.activeEffect()?.play()
 
   timeDomainCanvas = element.querySelector "canvas"
   repaint = (effect) ->
