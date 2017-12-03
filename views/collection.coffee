@@ -14,8 +14,8 @@ module.exports = ->
   self =
     activeItem: Observable null
 
-    add: (name, effect) ->
-      items.push Item name, effect, ->
+    add: (effect) ->
+      items.push Item effect, ->
         selectAndPlay(effect)
 
       self.activeItem(effect)

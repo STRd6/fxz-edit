@@ -5,7 +5,6 @@ Spectrum = require "./spectrum"
 Effect = require  "./models/effect"
 
 ApplicationTemplate = require "./templates/application"
-EffectActionsTemplate = require "./templates/effect-actions"
 ControlsPresenter = require "./presenters/controls"
 CollectionView = require "./views/collection"
 
@@ -20,7 +19,7 @@ module.exports = ->
     effect.randomOfType(type)
     effect.play()
 
-    collectionView.add(type, effect)
+    collectionView.add(effect)
 
   element = ApplicationTemplate
     controlsElement: controlsElement
@@ -66,8 +65,9 @@ module.exports = ->
     loadBuffer: (buffer, name="unknown") ->
       effect = Effect()
       effect.fromFXZ(buffer)
+      effect.name name
 
-      collectionView.add(name, effect)
+      collectionView.add(effect)
     element: element
     play: ->
       self.activeEffect()?.play()

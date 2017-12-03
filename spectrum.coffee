@@ -6,6 +6,7 @@ module.exports = (buffer, canvas, displayWidth, displayHeight=200) ->
 
   timeDomainColor = "#F00"
   backgroundColor = "black"
+  markerColor = "white"
 
   canvas.width = width
   canvas.height = height
@@ -33,7 +34,6 @@ module.exports = (buffer, canvas, displayWidth, displayHeight=200) ->
 
   # Plot time markers
   context.lineWidth = 1
-  context.fillStyle = "rgba(255, 255, 255, 0.75)"
 
   marksPerSecond = 16
 
@@ -43,6 +43,11 @@ module.exports = (buffer, canvas, displayWidth, displayHeight=200) ->
     n += 1
     t = n / marksPerSecond
     x = t * xScale * sampleRate
+
+    context.fillStyle = backgroundColor
+    context.fillText("#{t}", x + 7, 13)
+
+    context.fillStyle = markerColor
     context.fillRect(x, 0, 1, height)
     context.fillText("#{t}", x + 6, 12)
 

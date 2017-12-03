@@ -37,6 +37,7 @@ module.exports = ->
     self.wavURL URL.createObjectURL(wavFile)
 
   self =
+    name: Observable "unknown"
     regenerate: ->
       # Generate audio data
       audioBuffer = FXZ(params, audioContext)
@@ -49,8 +50,7 @@ module.exports = ->
     randomOfType: (type) ->
       Mutator[type](Mutator.reset(params))
 
-      self.wavFilename "#{type}.wav"
-      self.fxzFilename "#{type}.fxz"
+      self.name(type)
 
       self.regenerate()
 
@@ -64,12 +64,14 @@ module.exports = ->
     samples: ->
       audioBuffer.getChannelData(0)
 
-    wavFilename: Observable "sound.wav"
+    wavFilename: ->
+      "#{self.name()}.wav"
     wavURL: Observable null
 
     fxzBuffer: ->
       fxzBuffer
-    fxzFilename: Observable "sound.fxz"
+    fxzFilename: ->
+      "#{self.name()}.fxz"
     fxzURL: Observable null
 
     playing: Observable false
@@ -80,7 +82,6 @@ module.exports = ->
         buffer: audioBuffer
       node.connect audioContext.destination
       node.addEventListener "ended", (e) ->
-        console.log "Ended", e
         self.playing(false)
 
       self.playing true

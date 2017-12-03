@@ -14,4 +14,3 @@ application
   canvas
   = @controlsElement
   = @collectionElement
-  = @effectActionsElement

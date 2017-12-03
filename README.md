@@ -23,7 +23,6 @@ Help/Tips
 Remove entry from "Collection"
 Download buttons on history entries.
 'Duplicate' button on history entries so people can fork and mutate effects they like.
-Re-render spectrums on page resize.
 Load and save collections as fxp files.
 Rename items in collection, auto-sort by name.
 Undo/Redo
@@ -35,3 +34,4 @@ Editing the effect should be reflected in the collection items (update data re-r
 TOMAYBE
 -------
 Render spectrums from web workers?
+Re-render spectrums on page resize.

@@ -1,11 +1,19 @@
 ItemTemplate = require "../templates/fxz-item"
 Spectrum = require "../spectrum"
 
-module.exports = (name, effect, select) ->
+module.exports = (effect, select) ->
   element = ItemTemplate
-    name: name
-    click: ->
+    name: effect.name
+    click: (e) ->
       select(effect)
+    remove: ->
+
+    duplicate: ->
+
+    fxzURL: effect.fxzURL
+    fxzFilename: effect.fxzFilename
+    wavURL: effect.wavURL
+    wavFilename: effect.wavFilename
 
   waveformCanvas = element.querySelector('canvas')
 
@@ -16,6 +24,7 @@ module.exports = (name, effect, select) ->
       # Don't leak listeners
       effect.off "update", update
     element: element
+
 
   update = ->
     buffer = effect.fxzBuffer()
