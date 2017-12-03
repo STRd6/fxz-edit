@@ -1,6 +1,9 @@
 *
   box-sizing: border-box
 
+body, html
+  height: 100%
+
 body
   background-color: black
   color: white
@@ -10,7 +13,9 @@ body
   margin: 0
 
   > application
-    display: block
+    display: flex
+    flex-direction: column
+    height: 100%
 
 button, a.button
   color: #EEE
@@ -91,6 +96,8 @@ input[type="radio"]:not(:checked) ~ span.checked
   display: none
 
 section.collection
+  overflow: auto
+
   > div
     display: flex
 

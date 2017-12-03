@@ -16,10 +16,10 @@ We can even use the sign bits to sneak in extra booleans.
 TODO
 ----
 Download a .js that embeds the synth, the sounds (base64), and a mapping api for easy use in games / standalone.
+Load and save collections as fxp files.
 Feedback
 About
 Help/Tips
-Load and save collections as fxp files.
 Undo/Redo
 
 TODONE
