@@ -1,4 +1,3 @@
 section.control
   input(type="range" @min @max @step @value @input)
-  - #input(type="number" @min @max @step @value @input)
   label= @name

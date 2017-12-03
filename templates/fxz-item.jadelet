@@ -2,3 +2,6 @@ div.fxz-item(@click)
   label
     input(value=@name)
   canvas(height="32" width="200")
+  .actions
+    a.button(href=@wavURL download=@wavFilename) ⏬.wav
+    a.button(href=@fxzURL download=@fxzFilename) ⏬.fxz

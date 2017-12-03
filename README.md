@@ -17,16 +17,20 @@ TODO
 ----
 
 Download a .js that embeds the synth, the sounds (base64), and a mapping api for easy use in games / standalone.
+Feedback
+About
+Help/Tips
 Remove entry from "Collection"
-Editing the effect should be reflected in the history items (update data re-render).
+Download buttons on history entries.
 'Duplicate' button on history entries so people can fork and mutate effects they like.
 Re-render spectrums on page resize.
-Download buttons on history entries.
-Download a 'whole pack' of fxz. Just 100 byte fxz with name metadata.
-Rename items in history, auto-sort by name.
-Maybe change "History" to "Collection"
+Load and save collections as fxp files.
+Rename items in collection, auto-sort by name.
 Undo/Redo
-Load and save collections
+
+TODONE
+------
+Editing the effect should be reflected in the collection items (update data re-render).
 
 TOMAYBE
 -------

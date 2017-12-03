@@ -1,6 +1,3 @@
-# TODO: WIP Collection item view to make adding and interacting with effect
-# items easier
-
 ItemTemplate = require "../templates/fxz-item"
 Spectrum = require "../spectrum"
 
