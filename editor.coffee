@@ -76,7 +76,7 @@ module.exports = ->
       while n < l
         s = n + 16
         e = s + 100
-        nameBuffer = Uint8Array.from(buffer.slice(n, s))
+        nameBuffer = new Uint8Array(buffer.slice(n, s))
         lastNull = nameBuffer.indexOf(0)
 
         if lastNull >= 0
