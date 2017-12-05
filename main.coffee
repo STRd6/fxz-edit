@@ -1,3 +1,9 @@
+UI = require "ui"
+
+style = document.createElement "style"
+style.innerHTML = UI.Style.modal
+document.head.appendChild style
+
 styleNode = document.createElement("style")
 styleNode.innerHTML = require('./style')
 document.head.appendChild(styleNode)

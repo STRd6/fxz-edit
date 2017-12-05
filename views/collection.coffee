@@ -1,8 +1,11 @@
 {Observable} = require "/lib/jadelet-runtime"
 
+{Modal} = UI = require "ui"
+
 Item = require "./collection-item"
 
 CollectionTemplate = require "../templates/collection"
+Exporter = require('../export')
 
 module.exports = ->
   items = Observable []
@@ -32,29 +35,43 @@ module.exports = ->
       items.map (item) -> item.element
 
     element: null
+  
+    displayHelp: ->
+      helpSection = require("../templates/help")()
 
-    download: ->
-      blob = self.fxxBlob()
+      Modal.show helpSection
 
+    download: (blob, name) ->
       url = window.URL.createObjectURL(blob)
       a = document.createElement("a")
       a.href = url
-      a.download = "sounds.fxx"
+      a.download = name
       a.click()
       window.URL.revokeObjectURL(url)
 
-    fxxBlob: ->
-      data = []
+    downloadJS: ->
+      self.download self.JSBlob(), "fxz.js"
 
-      sizeEntry = new ArrayBuffer(4)
-      dataView = new DataView(sizeEntry)
-      dataView.setUint32(0, items().length, true)
+    JSBlob: ->
+      new Blob [Exporter(self.FXXBuffer())], type: "application/javascript"
 
+    downloadFXX: ->
+      self.download self.FXXBlob(), "sounds.fxx"
+
+    FXXBuffer: ->
+      entries = items().length
+
+      arrayBuffer = new ArrayBuffer(8 + 116 * entries)
+      uint8Array = new Uint8Array(arrayBuffer)
+
+      dataView = new DataView(arrayBuffer)
       # Header data "fxx\x01"
-      data.push Uint8Array.from [0x66, 0x78, 0x78, 0x01]
-      data.push sizeEntry
+      [0x66, 0x78, 0x78, 0x01].forEach (n, i) -> 
+        dataView.setUint8 i, n
+      # Number of entries
+      dataView.setUint32(4, entries, true)
 
-      items.forEach (item) ->
+      items.forEach (item, i) ->
         encodedName = new TextEncoder("utf-8").encode(item.name())
 
         # Limit names to exactly 16 bytes
@@ -62,10 +79,13 @@ module.exports = ->
         nameBuffer.forEach (_, i) ->
           nameBuffer[i] = encodedName[i] or 0
 
-        data.push nameBuffer
-        data.push item.fxzBuffer()
+        uint8Array.set nameBuffer, 8 + 116 * i
+        uint8Array.set new Uint8Array(item.fxzBuffer()), 24 + 116 * i
 
-      new Blob data, type: "application/fxx"
+      return arrayBuffer
+
+    FXXBlob: ->
+      new Blob [self.FXXBuffer()], type: "application/fxx"
 
   element = CollectionTemplate self
   self.element = element

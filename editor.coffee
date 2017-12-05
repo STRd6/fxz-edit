@@ -58,6 +58,8 @@ module.exports = ->
     activeEffect: ->
       collectionView.activeItem()
     createAndPlay: createAndPlay
+    fxxBuffer: ->
+      collectionView.fxxBuffer()
     loadFile: (file) ->
       file.readAsArrayBuffer()
       .then (buffer) ->
