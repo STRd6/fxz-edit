@@ -9,7 +9,7 @@ module.exports = (fxxBase64, context) ->
 
     name = new TextDecoder("utf-8").decode(nameBuffer)
 
-  s = atob(fxxBase64).split("")
+  s = atob(fxxBase64)
 
   l = s.length
   fxxData = new Uint8Array(l)
