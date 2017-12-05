@@ -43,18 +43,20 @@ module.exports = ->
       a.click()
       window.URL.revokeObjectURL(url)
 
-    fxxBlob: ->
-      data = []
+    fxxBuffer: ->
+      entries = items().length
 
-      sizeEntry = new ArrayBuffer(4)
-      dataView = new DataView(sizeEntry)
-      dataView.setUint32(0, items().length, true)
+      arrayBuffer = new ArrayBuffer(8 + 116 * entries)
+      uint8Array = new Uint8Array(arrayBuffer)
 
+      dataView = new DataView(ArrayBuffer)
       # Header data "fxx\x01"
-      data.push Uint8Array.from [0x66, 0x78, 0x78, 0x01]
-      data.push sizeEntry
+      [0x66, 0x78, 0x78, 0x01].forEach (n, i) -> 
+        dataView.setUint8 i, n
+      # Number of entries
+      dataView.setUint32(4, entries, true)
 
-      items.forEach (item) ->
+      items.forEach (item, i) ->
         encodedName = new TextEncoder("utf-8").encode(item.name())
 
         # Limit names to exactly 16 bytes
@@ -62,10 +64,13 @@ module.exports = ->
         nameBuffer.forEach (_, i) ->
           nameBuffer[i] = encodedName[i] or 0
 
-        data.push nameBuffer
-        data.push item.fxzBuffer()
+        uint8Array.set nameBuffer, 8 + 116 * i
+        uint8Array.set new Uint8Array(item.fxzBuffer()), 24 + 116 * i
 
-      new Blob data, type: "application/fxx"
+      return arrayBuffer
+
+    fxxBlob: ->
+      new Blob [self.fxxBuffer()], type: "application/fxx"
 
   element = CollectionTemplate self
   self.element = element
