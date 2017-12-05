@@ -37,5 +37,3 @@ Blob::readAsArrayBuffer = ->
       resolve reader.result
     reader.onerror = reject
     reader.readAsArrayBuffer(file)
-
-console.log require('./export')(editor.fxxBuffer())

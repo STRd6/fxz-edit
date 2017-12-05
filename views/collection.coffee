@@ -3,6 +3,7 @@
 Item = require "./collection-item"
 
 CollectionTemplate = require "../templates/collection"
+Exporter = require('../export')
 
 module.exports = ->
   items = Observable []
@@ -33,17 +34,24 @@ module.exports = ->
 
     element: null
 
-    download: ->
-      blob = self.fxxBlob()
-
+    download: (blob, name) ->
       url = window.URL.createObjectURL(blob)
       a = document.createElement("a")
       a.href = url
-      a.download = "sounds.fxx"
+      a.download = name
       a.click()
       window.URL.revokeObjectURL(url)
 
-    fxxBuffer: ->
+    downloadJS: ->
+      self.download self.JSBlob(), "fxz.js"
+
+    JSBlob: ->
+      new Blob [Exporter(self.FXXBuffer())], type: "application/javascript"
+
+    downloadFXX: ->
+      self.download self.FXXBlob(), "sounds.fxx"
+
+    FXXBuffer: ->
       entries = items().length
 
       arrayBuffer = new ArrayBuffer(8 + 116 * entries)
@@ -69,8 +77,8 @@ module.exports = ->
 
       return arrayBuffer
 
-    fxxBlob: ->
-      new Blob [self.fxxBuffer()], type: "application/fxx"
+    FXXBlob: ->
+      new Blob [self.FXXBuffer()], type: "application/fxx"
 
   element = CollectionTemplate self
   self.element = element
