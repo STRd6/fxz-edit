@@ -2,6 +2,7 @@ name: "FXZ Edit"
 version: "0.1.0"
 dependencies:
   fxz: "STRd6/fxz:v0.3.2"
+  ui: "STRd6/ui:master"
 remoteDependencies: [
   "https://unpkg.com/butternut@0.4.6/dist/butternut.min.js"
 ]

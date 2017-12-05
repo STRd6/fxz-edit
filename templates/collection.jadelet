@@ -3,5 +3,6 @@ section.collection
     | Collection
     button(click=@downloadFXX) ⏬.fxx
     button(click=@downloadJS) ⏬.js
+    button(click=@displayHelp) ?
   .items
     = @itemElements

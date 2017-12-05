@@ -1,0 +1,28 @@
+section.help
+  h2 Help
+  p Click on the generators at the top to create random new sounds.
+  p Rename your sounds by clicking on their names in the collection list.
+  p 
+    | Download an embeddable player with the ⏬.js button. You can include the 
+    | script in your web page and play your sounds by calling `FXZ.play("laser")`
+    | or whatever your sound is named.
+  p Download your sound pack with the ⏬.fxx button.
+  p Load your sound pack by dragging and dropping your .fxx file in the editor.
+  p Export individual sounds to wav with the ⏬.wav buttons.
+  p Export .fxz files for each sound with the ⏬.fxz buttons.
+  p Import individual sounds by dropping .fxz files in the editor.
+  h2 About
+  p 
+    | FXZ was created by 
+    a(href="https://danielx.net") Daniel X. Moore
+    | , inspired by sfxr
+    a(href="http://www.drpetter.se/project_sfxr.html") (thanks Dr. Petter!)
+    | .
+    | It was a port of a port, but I decided to go ham on the binary format and
+    | the embeddable synthesizer.
+  p
+    a(href="https://docs.google.com/forms/d/e/1FAIpQLSfgiL8Q4xUBpmSpikBA0xkmxfuBnH-YHMJ6T6-6T3ZShj0OpA/viewform?usp=sf_link" target="_blank") Feedback
+  p
+    a(href="https://github.com/STRd6/fxz" target="_blank") Specification
+  p
+    a(href="https://github.com/STRd6/fxz-edit" target="_blank") Source Code

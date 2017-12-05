@@ -1,5 +1,7 @@
 {Observable} = require "/lib/jadelet-runtime"
 
+{Modal} = UI = require "ui"
+
 Item = require "./collection-item"
 
 CollectionTemplate = require "../templates/collection"
@@ -33,6 +35,11 @@ module.exports = ->
       items.map (item) -> item.element
 
     element: null
+  
+    displayHelp: ->
+      helpSection = require("../templates/help")()
+
+      Modal.show helpSection
 
     download: (blob, name) ->
       url = window.URL.createObjectURL(blob)
