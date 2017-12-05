@@ -15,15 +15,17 @@ module.exports = (fxxBuffer) ->
   fxxData = ""
   l = fxxBuffer.byteLength
   bytes = new Uint8Array fxxBuffer
+  n = 0
   while n < l
     fxxData += String.fromCharCode(bytes[n])
     n += 1
   data = JSON.stringify(btoa(fxxData))
 
-  # TODO: Add data
-  program = PACKAGE.distribution["fxx-player"].content.replace("module.exports =", "return") + "(#{data})"
+  program = PACKAGE.distribution["fxx-player"].content.replace("module.exports =", "return").replace(/;\s+$/ ,"(#{data})")
 
   src += program
+  
+  console.log src
 
   {code} = butternut.squash src,
     check: true

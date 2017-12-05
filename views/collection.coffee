@@ -49,7 +49,7 @@ module.exports = ->
       arrayBuffer = new ArrayBuffer(8 + 116 * entries)
       uint8Array = new Uint8Array(arrayBuffer)
 
-      dataView = new DataView(ArrayBuffer)
+      dataView = new DataView(arrayBuffer)
       # Header data "fxx\x01"
       [0x66, 0x78, 0x78, 0x01].forEach (n, i) -> 
         dataView.setUint8 i, n
