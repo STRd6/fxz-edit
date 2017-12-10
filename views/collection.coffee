@@ -1,6 +1,7 @@
 {Observable} = require "/lib/jadelet-runtime"
 
-{Modal} = UI = require "ui"
+{UI} = require "sys"
+{Modal} = UI
 
 Item = require "./collection-item"
 
@@ -35,7 +36,7 @@ module.exports = ->
       items.map (item) -> item.element
 
     element: null
-  
+
     displayHelp: ->
       helpSection = require("../templates/help")()
 
@@ -66,7 +67,7 @@ module.exports = ->
 
       dataView = new DataView(arrayBuffer)
       # Header data "fxx\x01"
-      [0x66, 0x78, 0x78, 0x01].forEach (n, i) -> 
+      [0x66, 0x78, 0x78, 0x01].forEach (n, i) ->
         dataView.setUint8 i, n
       # Number of entries
       dataView.setUint32(4, entries, true)

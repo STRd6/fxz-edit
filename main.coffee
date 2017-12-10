@@ -1,8 +1,13 @@
-UI = require "ui"
+{UI} = SystemClient = require "sys"
 
-style = document.createElement "style"
-style.innerHTML = UI.Style.modal
-document.head.appendChild style
+{application, system} = SystemClient()
+
+system.ready()
+.then ->
+  # Do ZineOS Stuff
+  ;
+.catch ->
+  ; # No ZineOS
 
 styleNode = document.createElement("style")
 styleNode.innerHTML = require('./style')
