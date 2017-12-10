@@ -1,14 +1,5 @@
 {UI} = SystemClient = require "sys"
 
-{application, system} = SystemClient()
-
-system.ready()
-.then ->
-  # Do ZineOS Stuff
-  ;
-.catch ->
-  ; # No ZineOS
-
 styleNode = document.createElement("style")
 styleNode.innerHTML = require('./style')
 document.head.appendChild(styleNode)
@@ -33,6 +24,15 @@ Editor = require "./editor"
 editor = Editor()
 
 document.body.appendChild editor.element
+
+{application, system} = SystemClient()
+
+system.ready()
+.then ->
+  # Do ZineOS Stuff
+  application.setSignal "fxx", editor.fxxBuffer()
+.catch ->
+  ; # No ZineOS
 
 Hotkeys.add " ", ->
   editor.play()

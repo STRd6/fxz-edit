@@ -1,8 +1,8 @@
 section.collection
   h2 
     | Collection
-    button(click=@downloadFXX) ⏬.fxx
-    button(click=@downloadJS) ⏬.js
+    button(click=@downloadFxx) ⏬.fxx
+    button(click=@downloadJs) ⏬.js
     button(click=@displayHelp) ?
   .items
     = @itemElements

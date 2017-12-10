@@ -50,16 +50,16 @@ module.exports = ->
       a.click()
       window.URL.revokeObjectURL(url)
 
-    downloadJS: ->
-      self.download self.JSBlob(), "fxz.js"
+    downloadJs: ->
+      self.download self.jsBlob(), "fxz.js"
 
-    JSBlob: ->
-      new Blob [Exporter(self.FXXBuffer())], type: "application/javascript"
+    jsBlob: ->
+      new Blob [Exporter(self.fxxBuffer())], type: "application/javascript"
 
-    downloadFXX: ->
-      self.download self.FXXBlob(), "sounds.fxx"
+    downloadFxx: ->
+      self.download self.fxxBlob(), "sounds.fxx"
 
-    FXXBuffer: ->
+    fxxBuffer: ->
       entries = items().length
 
       arrayBuffer = new ArrayBuffer(8 + 116 * entries)
@@ -85,8 +85,8 @@ module.exports = ->
 
       return arrayBuffer
 
-    FXXBlob: ->
-      new Blob [self.FXXBuffer()], type: "application/fxx"
+    fxxBlob: ->
+      new Blob [self.fxxBuffer()], type: "application/fxx"
 
   element = CollectionTemplate self
   self.element = element

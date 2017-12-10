@@ -24,7 +24,7 @@ module.exports = (fxxBuffer) ->
   program = PACKAGE.distribution["fxx-player"].content.replace("module.exports =", "return").replace(/;\s+$/ ,"(#{data})")
 
   src += program
-  
+
   console.log src
 
   {code} = butternut.squash src,
