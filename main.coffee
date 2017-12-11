@@ -29,8 +29,10 @@ document.body.appendChild editor.element
 
 system.ready()
 .then ->
-  # Do ZineOS Stuff
-  application.setSignal "fxx", editor.fxxBuffer()
+  # TODO: Better updating rather than this simple hack
+  # Update our buffer signal every mouseup
+  document.addEventListener "mouseup", ->
+    application.setSignal "fxx", editor.fxxBuffer()
 .catch ->
   ; # No ZineOS
 
