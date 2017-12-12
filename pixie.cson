@@ -1,6 +1,7 @@
 name: "FXZ Edit"
 version: "0.1.0"
 dependencies:
+  analytics: "distri/google-analytics:v0.1.3"
   fxz: "STRd6/fxz:v0.3.2"
   sys: "STRd6/system-client:v0.1.5"
 remoteDependencies: [

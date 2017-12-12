@@ -1,3 +1,5 @@
+require("analytics").init("UA-3464282-15")
+
 {UI} = SystemClient = require "sys"
 
 styleNode = document.createElement("style")
